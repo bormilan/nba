@@ -1,6 +1,7 @@
 import pandas as pd
 from nba_api.stats.endpoints import teamgamelog
 from nba_api.stats.static import teams
+import time
 
 def get_team_log(team_name, save):
     team_1_ID = teams.find_teams_by_full_name(team_name)[0]['id']
@@ -8,6 +9,6 @@ def get_team_log(team_name, save):
     df = pd.DataFrame(team_games)
 
     if save:
-        df.to_csv(f"{team_name}_log.csv")
+        df.to_csv(f"{team_name}_log-{time.time}.csv")
 
     return df
