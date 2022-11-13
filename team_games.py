@@ -4,6 +4,7 @@ from nba_api.stats.static import teams
 from sklearn import preprocessing
 import time
 import random
+from nba_api.stats.endpoints import boxscoreadvancedv2
 
 def get_team_log(team_name, save=False):
     team_name = "Los Angeles Clippers" if team_name == "LA Clippers" else team_name
@@ -35,6 +36,7 @@ def get_team_log(team_name, save=False):
     #át kell alakítani a matchupot úgy hogy értelmesebb, használhatóbb legyen
     train['MATCHUP'] = train['MATCHUP'].map(lambda x: x.split(' ')[2])
 
+    #date átalakítások
     train['GAME_DATE'] = pd.to_datetime(train['GAME_DATE'], format="%b %d, %Y")
     train['day_in_month'] = train['GAME_DATE'].map(lambda x: int(x.strftime("%d")))
     train['day_in_week'] = train['GAME_DATE'].map(lambda x: int(x.strftime("%w")))
@@ -53,20 +55,39 @@ def get_team_log(team_name, save=False):
 
     return df
 
-def get_team_WL(row):
-    time.sleep(random.uniform(0.5,1))
-    df1 = get_team_log(row["TEAM_NAME"])
-    df2 = get_team_log(row["TEAM_NAME_2"])
-    wl1 = df1.loc[df1['Game_ID'] == ("00" + str(row["GAME_ID"])), ['W', 'L', "W_PCT", "MATCHUP"]].values[0]
-    wl2 = df2.loc[df2['Game_ID'] == ("00" + str(row["GAME_ID"])), ['W', 'L', "W_PCT"]].values[0]
-    row["W_H"], row["L_H"], row["W_A"], row["L_A"],row["WPCT_H"], row["WPCT_A"], row["MATCHUP"] = wl1[0], wl2[1], wl2[0], wl2[1], wl1[2], wl2[2], wl1[3]
-    return row
-
-def get_linup(team_name):
-    return 1
+# def get_team_WL(row):
+#     time.sleep(random.uniform(0.5,1))
+#     df1 = get_team_log(row["TEAM_NAME"])
+#     df2 = get_team_log(row["TEAM_NAME_2"])
+#     wl1 = df1.loc[df1['Game_ID'] == ("00" + str(row["GAME_ID"])), ['W', 'L', "W_PCT", "MATCHUP"]].values[0]
+#     wl2 = df2.loc[df2['Game_ID'] == ("00" + str(row["GAME_ID"])), ['W', 'L', "W_PCT"]].values[0]
+#     row["W_H"], row["L_H"], row["W_A"], row["L_A"],row["WPCT_H"], row["WPCT_A"], row["MATCHUP"] = wl1[0], wl2[1], wl2[0], wl2[1], wl1[2], wl2[2], wl1[3]
+#     return row
 
 def get_team_lineup(row):
     time.sleep(random.uniform(0.5,1))
-    return row
+    game_id = "00" + str(row["GAME_ID"])
+    print(f"get_team_linup: {game_id}")
+    df = pd.DataFrame(boxscoreadvancedv2.BoxScoreAdvancedV2(game_id=game_id).get_normalized_dict()["PlayerStats"])
+    #egy sorba kell rendezni egy csapat adatait
+    team1 = pd.DataFrame(df.loc[df["TEAM_ID"] == row["TEAM_ID"], [ 'PLAYER_ID', 'START_POSITION', ]].to_numpy().flatten()).T
+    team2 = pd.DataFrame(df.loc[df["TEAM_ID"] == row["TEAM_ID_2"], [ 'PLAYER_ID', 'START_POSITION', ]].to_numpy().flatten()).T
+    lineup = pd.concat([team1, team2], axis=1).squeeze()
 
-get_team_log("Utah Jazz", True)
+    #be kell állítani az oszlopneveket
+    final = []
+    index = 0
+    for i, _ in enumerate(lineup):
+        if i % 2 != 0: 
+            final.append(f"start_position_{index}")
+            index = index + 1
+        else:
+            final.append(f"player_id_{index}")
+    lineup.columns = final
+
+    # print(row)
+    # lineup = pd.Series(lineup.values.reshape(1, len(lineup)))
+    # print(lineup.shape)
+    row = row.append(lineup, ignore_index=True)
+    print(row)
+    return row
