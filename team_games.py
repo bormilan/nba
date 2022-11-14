@@ -74,20 +74,9 @@ def get_team_lineup(row):
     team2 = pd.DataFrame(df.loc[df["TEAM_ID"] == row["TEAM_ID_2"], [ 'PLAYER_ID', 'START_POSITION', ]].to_numpy().flatten()).T
     lineup = pd.concat([team1, team2], axis=1).squeeze()
 
-    #be kell állítani az oszlopneveket
-    final = []
-    index = 0
-    for i, _ in enumerate(lineup):
-        if i % 2 != 0: 
-            final.append(f"start_position_{index}")
-            index = index + 1
-        else:
-            final.append(f"player_id_{index}")
-    lineup.columns = final
-
     # print(row)
     # lineup = pd.Series(lineup.values.reshape(1, len(lineup)))
     # print(lineup.shape)
     row = row.append(lineup, ignore_index=True)
-    print(row)
+
     return row
