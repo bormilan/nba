@@ -70,8 +70,8 @@ def get_team_lineup(row):
     print(f"get_team_linup: {game_id}")
     df = pd.DataFrame(boxscoreadvancedv2.BoxScoreAdvancedV2(game_id=game_id).get_normalized_dict()["PlayerStats"])
     #egy sorba kell rendezni egy csapat adatait
-    team1 = pd.DataFrame(df.loc[df["TEAM_ID"] == row["TEAM_ID"], [ 'PLAYER_ID', 'START_POSITION', ]].to_numpy().flatten()).T
-    team2 = pd.DataFrame(df.loc[df["TEAM_ID"] == row["TEAM_ID_2"], [ 'PLAYER_ID', 'START_POSITION', ]].to_numpy().flatten()).T
+    team1 = pd.DataFrame(df.loc[df["TEAM_ID"] == row["TEAM_ID"], [ 'PLAYER_ID' ]].to_numpy().flatten()[:5]).T
+    team2 = pd.DataFrame(df.loc[df["TEAM_ID"] == row["TEAM_ID_2"], [ 'PLAYER_ID']].to_numpy().flatten()[:5]).T
     lineup = pd.concat([team1, team2], axis=1).squeeze()
 
     # print(row)

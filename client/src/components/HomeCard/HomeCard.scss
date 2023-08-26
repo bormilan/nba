@@ -1,0 +1,63 @@
+.homecard {
+    height: 80%;
+    display: grid;
+    // place-items: center;
+    // align-content: center;
+    background-color: black;
+    box-shadow: 0 0 15px 0 black;
+    /* padding: "40px 30px", */
+    width: 420px;
+    border-radius: 20px;
+    color: white;
+    background-color:black;
+    &:hover {
+        animation: cardHover .25s;
+        // transform: scale(1.2);
+        transform: scale(1.2);
+    }
+}
+
+@keyframes cardHover {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.2);
+    }
+}
+
+.picture {
+    // width: 350px;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+}
+
+.card-title {
+    height: 40px;
+    display: grid;
+    flex-wrap: wrap;
+    text-align: center;
+    border: 1;
+    border-radius: 20px;
+    place-items: center;
+    background-color: white;
+    color: black;
+    box-shadow: inset 1px 1px 1px 1px black;
+    text-transform: uppercase;
+    // position: fixed;
+    // position: static;
+}
+
+.description {
+    flex-wrap: wrap;
+    text-align: left;
+    font-size: 14;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.button {
+    background-color: white;
+}

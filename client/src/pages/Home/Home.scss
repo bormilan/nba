@@ -1,0 +1,54 @@
+.first-page {
+    display: grid;
+    place-items: center;
+    align-content: top;
+    height: 100vh;
+    width: 100%;
+    flex-grow: 1;
+    justify-items: center;
+    gap: 5px;
+    grid-auto-flow: column;
+    // alignItems: 'center',
+    // opacity: 0.75,
+    // backgroundImage:`url(${"https://assets.2k.com/1a6ngf98576c/435wasAEo74dJUQELhKQUD/29fdd9361099bb3712245b5b226152a7/NBA23-WEBSITE-PRE_ORDER-HOMPAGE-MODULE2-RETAIL_CAROUSEL-MJ_EDITION-425x535.jpg"})`,
+    // backgroundColor: "grey",
+    background-size: 'cover';
+    background-position: 'center';
+}
+
+.second-page {
+    height: 100vh;
+    width: 100vw;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.8;
+    background-image:url("https://cdn.nba.com/teams/uploads/sites/1610612741/2022/11/221125_SamSmith_DeMarDeRozan_Dunk_Bucks_16x9.jpg");
+    background-size: cover;
+    // backgroundPosition: 'center',
+}
+
+.third-page {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("https://media.dunkest.com/2021/01/22122648/nba-champion-trophy.jpg");
+    background-size: cover;
+    opacity: 0.8;
+}
+
+.login-page {
+    height: 100vh;
+    width: 100vw; 
+    background-color: white;
+}
+
+.filler {
+    height: 100vh;
+    width: 100vw; 
+    background-color: white; 
+}
+
+.card-container {
+    background-image: url("https://cdn.nba.com/manage/2019/04/general-view-warriors-pregame-warmup-0411.jpg");
+    opacity: 0.9;
+}

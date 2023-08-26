@@ -40,6 +40,11 @@ def main():
     all_team["GAME_ID"] = all_team["GAME_ID"].astype(int)
     all_team["TEAM_ID"] = all_team["TEAM_ID"].astype(int)
 
+    df_filtered.to_csv("df_filtered.csv")
+    all_team.to_csv("all_team.csv")
+
+    print(df_filtered.shape)
+    print(all_team.shape)
     print("first join")
     joined = pd.merge(
         df_filtered, all_team, on=["GAME_ID", "TEAM_ID"]
@@ -47,15 +52,17 @@ def main():
 
     all_team.columns = ['MATCHUP', 'GAME_ID', 'TEAM_ID_2', 'W', 'L', 'W_PCT', 'day_in_month', 'day_in_week']
 
+    print(joined.shape)
     print("second join")
     joined2 = pd.merge(
-        joined, all_team, on=["GAME_ID", "TEAM_ID_2"]
+        joined, all_team, on=["GAME_ID", "TEAM_ID_2"], 
     )
-
+    print(joined2.shape)
     joined2.to_csv("test_train.csv")
 
     final = joined2.apply(get_team_lineup, axis=1)
-    final.columns = get_col_names(final.columns, joined2.columns)
+    # final.columns = get_col_names(final.columns, joined2.columns)
+    final.columns = list(joined2.columns) + ["player_id_0", "player_id_1", "player_id_2", "player_id_3", "player_id_4", "player_id_5", "player_id_6", "player_id_7", "player_id_8", "player_id_9"]
 
     final.to_csv("test_final.csv")
 

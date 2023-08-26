@@ -1,0 +1,48 @@
+.login-container {
+    height: 100vh;
+    width: 100%; 
+    // background-color: rgb(19, 80, 19);
+    background-image: url("https://ca-times.brightspotcdn.com/dims4/default/de76bc2/2147483647/strip/true/crop/2407x1601+0+0/resize/1486x988!/quality/80/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Fc1%2F5b%2F59a9e46e459f84fca4933d3dfa23%2Fraptors-76ers-basketball-82031.jpg");
+    background-size: cover;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+.login-card {
+    height: 60%;
+    width: 50%;  
+    background: transparentize(aliceblue, 0.3);
+    border-radius: 20px;
+    // background-image: url("https://c4.wallpaperflare.com/wallpaper/19/261/138/lubricated-light-glare-shades-wallpaper-preview.jpg");
+    background-size: cover;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    box-shadow: 0 0 15px 0 black;
+}
+
+.title {
+    font-family: 'Courier New', Courier, monospace; 
+    font-size:larger;
+
+}
+
+.login{
+    height: 100%;
+    width: 70%; 
+    display: grid;
+    text-align: center;
+    place-items: center;
+    align-content: center;
+}
+
+.input {
+    place-items: center;
+    width: 80%;
+    color: white;
+}
+
+.submit-button:hover {
+    background: transparentize(black, 0.5); 
+}

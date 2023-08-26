@@ -1,0 +1,32 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: Arial, Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0
+}
+
+.main-container {
+    background-image: url("https://cdn.nba.com/teams/uploads/sites/1610612741/2022/11/221125_SamSmith_DeMarDeRozan_Dunk_Bucks_16x9.jpg");
+    height: 100vh;
+    width: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+}
+
+.nav-element {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    height: 7vh;
+    border-radius: 50px;
+    border: 5px;
+    border-color: aliceblue;
+}
+
+.nav-element:hover {
+    background-color: 'primary.main';
+    opacity: 0.5
+}
